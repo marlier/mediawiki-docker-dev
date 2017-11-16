@@ -1,10 +1,10 @@
 ## Instructions
 
-If you don't want to use the default port of 8080 and the default mediawiki path of ~/dev/git/gerrit/mediawiki then please just change the .env file for now....
+If you don't want to use the default port of 8080 and the default mediawiki path of ~/dev/git/mediawiki then set `DOCKER_MW_PATH` or `DOCKER_MW_PORT` to something else in a `local.env` file.
 
 ### Install
 
-#### 1) Install Docker & Docker Compose
+#### 1) Install Docker
 
 https://docs.docker.com/compose/install/
 
@@ -17,20 +17,20 @@ https://askubuntu.com/questions/477551/how-can-i-use-docker-without-sudo#477554
 git clone https://github.com/addshore/mediawiki-docker-dev.git
 ```
 
-#### 3) Clone MediaWiki Core & the Vector Skin
+#### 3) Clone MediaWiki core & the Vector Skin
 
 From [Wikimedia Gerrit](https://gerrit.wikimedia.org/r/#/admin/projects/mediawiki/core):
 
 ```
-git clone https://gerrit.wikimedia.org/r/mediawiki/core ~/dev/git/gerrit/mediawiki
-git clone https://gerrit.wikimedia.org/r/mediawiki/skins/Vector ~/dev/git/gerrit/mediawiki/skins/Vector
+git clone https://gerrit.wikimedia.org/r/mediawiki/core ~/dev/git/mediawiki
+git clone https://gerrit.wikimedia.org/r/mediawiki/skins/Vector ~/dev/git/mediawiki/skins/Vector
 ```
 
 Or from [Github Mirror](https://github.com/wikimedia/mediawiki) (often quicker):
 
 ```
-git clone https://github.com/wikimedia/mediawiki.git ~/dev/git/gerrit/mediawiki
-git clone https://github.com/wikimedia/mediawiki-skins-Vector.git ~/dev/git/gerrit/mediawiki/skins/Vector
+git clone https://github.com/wikimedia/mediawiki.git ~/dev/git/mediawiki
+git clone https://github.com/wikimedia/mediawiki-skins-Vector.git ~/dev/git/mediawiki/skins/Vector
 
 # You can then set the remote to point back to gerrit:
 
@@ -51,23 +51,24 @@ require_once __DIR__ . '/.docker/LocalSettings.php';
 
 #### 5) Run various commands to interact with the environment
 
-You can setup a small bash alias to make running the various commands much easier.
-An example is provided below:
+**Add the following to your `/etc/hosts/` file**
 
-```bash
-alias mw-docker-dev='_(){ (cd /$GITPATH/github/addshore/mediawiki-docker-dev; ./$@) ;}; _'
+```
+127.0.0.1 default.web.mw.localhost # mediawiki-docker-dev
+127.0.0.1 proxy.mw.localhost # mediawiki-docker-dev
+127.0.0.1 phpmyadmin.mw.localhost # mediawiki-docker-dev
+127.0.0.1 graphite.mw.localhost # mediawiki-docker-dev
 ```
 
-Without such a bash alias you will have the run the scripts from within the mediawiki-docker-dev directory itself.
 
 **To set up the containers**:
 
-This includes setting up a default wiki @ http://default.web.mw.local.wmftest.net:8080
+This includes setting up a default wiki @ http://default.web.mw.localhost:8080
 
 You can choose the spec of the system that the up command will set up by using a custom .env file called local.env and customizing the variables.
 
 ```
-mw-docker-dev up
+./up
 ```
 
 **To stop the containers**:
@@ -75,7 +76,7 @@ mw-docker-dev up
 Databases persist.
 
 ```
-mw-docker-dev stop
+./stop
 ```
 
 **To restart the containers**:
@@ -83,7 +84,7 @@ mw-docker-dev stop
 If things have already been setup using up.
 
 ```
-mw-docker-dev start
+./start
 ```
 
 **To tear down the containers**:
@@ -91,7 +92,7 @@ mw-docker-dev start
 Removes databases.
 
 ```
-mw-docker-dev down
+./down
 ```
 
 **Run commands on the webserver**:
@@ -101,7 +102,7 @@ If the containers are running you can use the ./bash script to open up a interac
 This can be used to run tests, maintenance scripts etc.
 
 ```
-mw-docker-dev bash
+./bash
 ```
 
 **Add a new site**:
@@ -109,20 +110,14 @@ mw-docker-dev bash
 You can add a new site by name using the ./addsite command
 
 ```
-mw-docker-dev addsite enwiki
-```
-
-**Run tests**:
-
-```
-mw-docker-dev phpunit --wiki default //var/www/mediawiki/extensions/FileImporter/tests/phpunit
+./addsite dewiki
 ```
 
 ### Access
 
- - [Default MediaWiki Site](http://default.web.mw.local.wmftest.net:8080)
- - [Graphite](http://graphite.mw.local.wmftest.net:8080)
- - [PhpMyAdmin](http://phpmyadmin.mw.local.wmftest.net:8080)
+ - [Default MediaWiki Site](http://default.web.mw.localhost:8080)
+ - [Graphite](http://graphite.mw.localhost:8080)
+ - [PhpMyAdmin](http://phpmyadmin.mw.localhost:8080)
 
 ### Debugging
 

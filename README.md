@@ -3,6 +3,8 @@
 By default the below steps will install MediaWiki at `~/dev/mediawiki`
 and start a server for <http://default.web.mw.localhost:8080>.
 
+If you don't want to use the default port of 8080 and the default mediawiki path of ~/dev/git/mediawiki then set `DOCKER_MW_PATH` or `DOCKER_MW_PORT` to something else in a `local.env` file.
+
 Many aspect of the container, including the port and MediaWiki path, can be customised
 by creating a `local.env` in this directory, in which to override one or more variables
 from `default.env`.

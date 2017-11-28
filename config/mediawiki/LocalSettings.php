@@ -31,11 +31,11 @@ $wgDBprefix = "";
 $wgDBTableOptions = "ENGINE=InnoDB, DEFAULT CHARSET=binary";
 
 ## Site settings
-$wgScriptPath = "";
+$wgScriptPath = "/mediawiki";
 
 $wgSitename = "docker-$dockerDb";
 $wgMetaNamespace = "Project";
-$wgFavicon = "./.docker/favicon.ico";
+$wgFavicon = "{$wgScriptPath}/.docker/favicon.ico";
 
 $wgUploadDirectory = "{$IP}/images/docker/{$dockerDb}";
 $wgUploadPath = "{$wgScriptPath}/images/docker/{$dockerDb}";

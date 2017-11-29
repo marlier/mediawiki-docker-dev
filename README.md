@@ -178,7 +178,18 @@ To run the QUnit tests from the browser, use [Special:JavaScriptTest](http://def
 
 See also <https://www.mediawiki.org/wiki/Manual:JavaScript_unit_testing>.
 
-Running the QUnit from the command-line is currently unsupported (see [issue 28](https://github.com/addshore/mediawiki-docker-dev/issues/28)).
+To run QUnit from the command-line, make sure you have [Node.js v4 or later](https://nodejs.org/) installed on the host, and set the following environment variables:
+
+```
+export MW_SERVER='http://default.web.mw.localhost:8080'
+export MW_SCRIPT_PATH='/mediawiki'
+```
+
+```
+$ cd ~/dev/mediawiki
+$ npm install
+$ npm run qunit
+```
 
 ## Access
 

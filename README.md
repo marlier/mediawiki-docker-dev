@@ -9,7 +9,6 @@ Many aspect of the container, including the port and MediaWiki path, can be cust
 by creating a `local.env` in this directory, in which to override one or more variables
 from `default.env`.
 
-
 ### 1) Install Docker & Docker Compose
 
 https://docs.docker.com/compose/install/
